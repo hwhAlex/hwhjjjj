@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InvitationDao">
+    <resultMap id="InvitationMap" type="com.model.Invitation">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+        <result column="sharer" property="sharer" jdbcType="VARCHAR" />
+        <result column="sharer_uid" property="sharerUid" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+        <result column="is_audit" property="isAudit" jdbcType="TINYINT" />
+        <result column="publish_ovs" property="publishOvs" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="DATE" />
+        <result column="is_del" property="isDel" jdbcType="TINYINT" />
+        <result column="manage_id" property="manageId" jdbcType="INTEGER" />
+        <result column="message" property="message" jdbcType="VARCHAR" />
+        <result column="platform_id" property="platformId" jdbcType="VARCHAR" />
+        <result column="is_preview" property="isPreview" jdbcType="TINYINT" />
+        <result column="readonly" property="readonly" jdbcType="TINYINT" />
+        <result column="task_id" property="taskId" jdbcType="INTEGER" />
+        <result column="log" property="log" jdbcType="VARCHAR" />
+        <result column="gmt_modify" property="gmtModify" jdbcType="DATE" />
+        <result column="shops" property="shops" jdbcType="VARCHAR" />
+        <result column="column_id" property="columnId" jdbcType="VARCHAR" />
+        <result column="third_audit" property="thirdAudit" jdbcType="TINYINT" />
+        <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+        <result column="is_hot" property="isHot" jdbcType="TINYINT" />
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO baowen_invitation
+        (content,title,pic_url,sharer,sharer_uid,status,keywords,is_audit,publish_ovs,gmt_create,is_del,manage_id,
+        message,platform_id,is_preview,readonly,task_id,log,gmt_modify,shops,column_id,third_audit,channel_id,is_hot)
+        VALUES
+        (#{content},#{title},#{picUrl},#{sharer},#{sharerUid},#{status},#{keywords},#{isAudit},#{publishOvs},#{gmtCreate},#{isDel}
+        ,#{manageId},#{message},#{platformId},#{isPreview},#{readonly},#{taskId},#{log},#{gmtModify},#{shops},#{columnId},#{thirdAudit}
+        ,#{channelId},#{isHot})
+    </insert>
+
+
+</mapper>

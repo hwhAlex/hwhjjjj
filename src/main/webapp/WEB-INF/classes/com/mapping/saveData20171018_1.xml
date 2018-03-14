@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SaveData20171018_1Dao">
+
+    <resultMap id="saveData20171018Map" type="com.model.SaveData20171018_1">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="link" property="link" jdbcType="VARCHAR" />
+        <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+        <result column="content_name" property="contentName" jdbcType="VARCHAR" />
+        <result column="rank" property="rank" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO save_data_20171018_1(link,item_id,shop_id,item_name,shop_name,content_name,rank) VALUES
+        (#{link},#{itemId},#{shopId},#{itemName},#{shopName},#{contentName},#{rank})
+    </insert>
+
+    <update id="update" >
+        UPDATE save_data_20171018_1 SET link = #{link},item_id = #{itemId},shop_id = #{shopId},item_name = #{itemName}
+        ,shop_name = #{shopName},content_name = #{contentName},rank = #{rank} WHERE id = #{id}
+    </update>
+
+    <sql id="dataColumn" >
+        id,link,item_id as itemId,shop_id as shopId,item_name as itemName,shop_name as shopName,content_name as contentName,
+        rank as rank
+    </sql>
+
+    <select id="findAll" resultMap="saveData20171018Map">
+        SELECT <include refid="dataColumn" /> FROM save_data_20171018_1
+    </select>
+
+    <select id="getLinkAs" resultMap="saveData20171018Map">
+        SELECT <include refid="dataColumn" /> FROM save_data_20171018_1 WHERE link LIKE #{link}
+    </select>
+
+    <select id="findRankZero" resultMap="saveData20171018Map">
+        SELECT <include refid="dataColumn" /> FROM save_data_20171018_1 WHERE rank = 0 ORDER BY id DESC
+    </select>
+
+    <select id="getLinkCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM save_data_20171018_1 WHERE rank = 0 AND link = #{link}
+    </select>
+
+    <select id="getByLinkAndItem"  resultMap="saveData20171018Map">
+        SELECT <include refid="dataColumn" /> FROM save_data_20171018_1 WHERE link = #{dataLink} AND item_id = #{itemId}
+    </select>
+
+
+
+</mapper>

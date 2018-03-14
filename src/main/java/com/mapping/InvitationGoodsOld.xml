@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InvitationGoodsOldDao">
+    <resultMap id="goodsOldMap" type="com.model.InvitationGoodsOld">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="invitationid" property="invitationId" jdbcType="INTEGER" />
+        <result column="nick" property="nick" jdbcType="VARCHAR" />
+        <result column="source" property="source" jdbcType="TINYINT" />
+        <result column="openiid" property="openId" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="INTEGER" />
+        <result column="sorting" property="sort" jdbcType="INTEGER" />
+        <result column="isTmall" property="isTmall" jdbcType="TINYINT" />
+        <result column="itemId" property="itemId" jdbcType="VARCHAR" />
+        <result column="itemTitle" property="itemTitle" jdbcType="VARCHAR" />
+        <result column="isShow" property="isShow" jdbcType="TINYINT" />
+        <result column="itemPic" property="itemPic" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+
+    <select id="getByInvitationOld" resultMap="goodsOldMap">
+        SELECT * FROM baowen_invitation_goods_old WHERE `invitationid` = #{invitationId}
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OABaowenUserDao">
+    <resultMap id="oaBaowenMap" type="com.model.OABaoWenUser">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="oa_id" property="oaId" jdbcType="INTEGER" />
+        <result column="baowen_id" property="baowenId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO oa_baowen_user (oa_id,baowen_id) VALUES (#{oaId},#{baowenId})
+    </insert>
+
+    <select id="getAll" resultMap="oaBaowenMap">
+        SELECT * FROM oa_baowen_user
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.InvitationGoodsDao">
+    <resultMap id="goodsMap" type="com.model.InvitationGoods">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="invitation_id" property="invitationId" jdbcType="INTEGER" />
+        <result column="nick" property="nick" jdbcType="VARCHAR" />
+        <result column="source" property="source" jdbcType="TINYINT" />
+        <result column="open_id" property="openId" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="INTEGER" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="is_tmall" property="isTmall" jdbcType="TINYINT" />
+        <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+        <result column="item_title" property="itemTitle" jdbcType="VARCHAR" />
+        <result column="is_show" property="isShow" jdbcType="TINYINT" />
+        <result column="item_pic" property="itemPic" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO baowen_invitation_goods
+        (invitation_id,nick,source,open_id,description,sort,is_tmall,item_id,item_title,is_show,item_pic)
+        VALUES
+        (#{invitationId},#{nick},#{source},#{openId},#{description},#{sort},#{isTmall},#{itemId},#{itemTitle},#{isShow}
+        ,#{itemPic})
+    </insert>
+
+    <select id="getByInvitation" resultMap="goodsMap">
+        SELECT * FROM baowen_invitation_goods WHERE `invitation_id` = #{invitationId}
+    </select>
+</mapper>

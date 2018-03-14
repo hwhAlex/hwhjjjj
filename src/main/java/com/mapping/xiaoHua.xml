@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.XiaoHuaDao">
+    <resultMap id="xiaoHuaMap" type="com.model.XiaoHua">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="link" property="link" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <sql id="xiaoHuaColumn" >
+        id,title,content
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO xiaohua
+        (title,content,link)
+        VALUES
+        (#{title},#{content},#{link})
+    </insert>
+
+    <select id="getById" resultMap="xiaoHuaMap">
+        SELECT <include refid="xiaoHuaColumn" /> FROM xiaohua WHERE id = #{id}
+    </select>
+
+    <select id="getByLink" resultMap="xiaoHuaMap">
+        SELECT <include refid="xiaoHuaColumn" /> FROM xiaohua WHERE link = #{link}
+    </select>
+
+</mapper>

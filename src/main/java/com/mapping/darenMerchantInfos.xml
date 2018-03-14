@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DarenMerchantInfosDao">
+
+
+    <resultMap id="merchantInfosMap" type="com.model.DarenMerchantInfos">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="applyDeadtime" property="applyDeadtime" jdbcType="DATE" />
+        <result column="fee" property="fee" jdbcType="INTEGER" />
+        <result column="merchanId" property="merchanId" jdbcType="INTEGER" />
+        <result column="subject" property="subject" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="daren_data_id" property="daren_data_id" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO daren_merchantInfos
+        (applyDeadtime,fee,merchanId,subject,`type`,url,daren_data_id)
+        VALUES
+        (#{applyDeadtime},#{fee},#{merchanId},#{subject},#{type},#{url},#{daren_data_id})
+    </insert>
+
+    <select id="getById" resultMap="merchantInfosMap">
+        SELECT * FROM daren_merchantInfos WHERE id = #{id}
+    </select>
+</mapper>

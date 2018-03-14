@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DarenWeiboDao">
+
+
+    <resultMap id="weiboMap" type="com.model.DarenWeibo">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="nick" property="nick" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="guanzhu" property="guanzhu" jdbcType="VARCHAR" />
+        <result column="follow" property="follow" jdbcType="VARCHAR" />
+        <result column="weibos" property="weibos" jdbcType="VARCHAR" />
+        <result column="intro" property="intro" jdbcType="VARCHAR" />
+        <result column="tags" property="tags" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="local" property="local" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO daren_weibo
+        (nick,url,guanzhu,follow,weibos,intro,tags,gender,`local`)
+        VALUES
+        (#{nick},#{url},#{guanzhu},#{follow},#{weibos},#{intro},#{tags},#{gender},#{local})
+    </insert>
+
+    <select id="getById" resultMap="weiboMap">
+        SELECT * FROM daren_weibo WHERE id = #{id}
+    </select>
+
+    <select id="getByNick" resultMap="weiboMap">
+        SELECT * FROM daren_weibo WHERE nick = #{nick} limit 1
+    </select>
+
+    <update id="update" >
+        UPDATE daren_weibo SET url=#{url},guanzhu=#{guanzhu},follow=#{follow},weibos=#{weibos},intro=#{intro},
+        tags=#{tags},gender=#{gender},`local`=#{local} WHERE id = #{id}
+    </update>
+</mapper>

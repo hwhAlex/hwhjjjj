@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.Spider20171106Dao">
+    <resultMap id="spiderMap" type="com.model.Spider20171106">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="daren_name" property="darenName" jdbcType="VARCHAR" />
+        <result column="daren_id" property="darenId" jdbcType="BIGINT" />
+        <result column="content_id" property="contentId" jdbcType="BIGINT" />
+        <result column="recruit_title" property="recruitTitle" jdbcType="VARCHAR" />
+        <result column="recruit_id" property="recruitId" jdbcType="VARCHAR" />
+        <result column="content_url" property="contentUrl" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <sql id="spiderColumn" >
+        id,daren_name as darenName,daren_id as darenId,content_id as contentId,recruit_title as recruitTitle
+        ,recruit_id as recruitId,content_url as contentUrl,title
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO spider_20171106
+        (daren_name,daren_id,content_id,recruit_title,recruit_id,content_url,title)
+        VALUES
+        (#{darenName},#{darenId},#{contentId},#{recruitTitle},#{recruitId},#{contentUrl},#{title})
+    </insert>
+
+    <select id="getById" resultMap="spiderMap">
+        SELECT <include refid="spiderColumn" /> FROM spider_20171106 WHERE id = #{id}
+    </select>
+</mapper>

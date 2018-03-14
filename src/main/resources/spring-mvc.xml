@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.2.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.controller">
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        &lt;!&ndash; 必须要包括ControllerAdvice才能处理全局异常。 &ndash;&gt;
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />-->
+    </context:component-scan>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=utf-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <bean id="methodInterceptor" class="com.aop.MethodInterceptor"></bean>
+    <aop:aspectj-autoproxy>
+        <aop:include name="methodInterceptor"></aop:include>
+    </aop:aspectj-autoproxy>
+
+
+<!--    <mvc:annotation-driven>
+       <mvc:message-converters>
+          <ref bean="mappingJacksonHttpMessageConverter"/>
+       </mvc:message-converters>
+    </mvc:annotation-driven>-->
+
+ <!--   <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>-->
+
+ <!--   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter" />&lt;!&ndash; json转换器 &ndash;&gt;
+            </list>
+        </property>
+    </bean>-->
+
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <!-- <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />-->
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView" />
+    </bean>
+
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+
+    <bean id="velocityEngine"
+          class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+
+
+
+
+
+    <bean id="contentNegotiationManager"
+          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+                <entry key="xml" value="application/xml" />
+                <entry key="json" value="application/json" />
+                <entry key="htm" value="application/json" />
+                <entry key="jsonp" value="application/jsonp" />
+            </map>
+        </property>
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="favorPathExtension" value="true" />
+        <!-- 如果所有的mediaType都没匹配上，就会使用defaultContentType -->
+        <property name="defaultContentType" value="application/json" />
+    </bean>
+
+
+
+    </beans>
